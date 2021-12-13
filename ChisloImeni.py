@@ -12,6 +12,14 @@ g=["ё","о","ч"]     #7
 h=["ж","п","ш"]     #8
 i=["з","р","щ"]     #9
 j=[]
+def uus_aken(ind:int):
+    if askyesno("Küsimus","Kas teen lahti?"):
+        showinfo("Vastus","Teen lahti aken")
+    else:
+        aken.destroy()
+    uusaken=Toplevel()
+    tabs=ttk.Notebook(uusaken)
+    texts=["snake1.gif","1.gif","2.gif","3.gif"]
 def klikker(event):
     global klik
     klik+=1
@@ -31,7 +39,7 @@ def text_to_lbl(event):
     ent.delete(0,END)
 
 def nimi_arvutamine(event):
-    x=ent.get()
+    x=ent.get().lower()
     x=list(x)
     for y in x:
         if y in a:
@@ -54,28 +62,25 @@ def nimi_arvutamine(event):
             j.append(9)
         
         l=sum(j)
-        #l=list(str(l))
         v=map(int, str(l))
         l=sum(v)
 
-        lbl_result.configure(text="Число вашего имени: "+str(l))
+        data = []
+        with open("TextFile1.txt","r", encoding="utf-8-sig") as f:
+            lines = f.readlines()
+            a1 = 26
+            b1 = 31
+            p=("\n".join(lines[a1:b1]))
+            lbl_result.configure(text="Число вашего имени: "+str(l)+"\n"+str(p))
 
 aken=Tk()
-aken.title("akna nimetus")
+aken.title("ЧИСЛО ИМЕНИ")
 aken.geometry("1920x1080")
-def uus_aken(ind:int):
-    if askyesno("Küsimus","Kas teen lahti?"):
-        showinfo("Vastus","Teen lahti aken")
-    else:
-        aken.destroy()
-    uusaken=Toplevel()
-    tabs=ttk.Notebook(uusaken)
-    texts=["snake1.gif","1.gif","2.gif","3.gif"]
 
 ent=Entry(aken,fg="blue",width=20,font="Arial 20")
 lbl=Label(aken,text="Sisestage oma nimi palun!")
 btn=Button(aken,text="arvuta nimi numbri",font="Arial 20",fg="green",bg="lightblue",height=1)
-lbl_result=Label(aken,text="Arvutuse resultaat:",bg="white",height=4,width=20,font="Arial 20")
+lbl_result=Label(aken,text="Расчеты имени",bg="white",height=100,font="Arial 20",borderwidth=50)
 btn.bind("<Button-1>",nimi_arvutamine)
 
 
